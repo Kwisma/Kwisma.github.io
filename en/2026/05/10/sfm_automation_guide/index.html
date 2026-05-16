@@ -1,0 +1,879 @@
+  <!DOCTYPE html>
+  <html lang="en"  
+      data-theme-mode="auto"
+  >
+  <head>
+  <meta charset="utf-8">
+  
+  
+  
+  <script>window.REIMU_CONFIG = {};window.REIMU_CONFIG.clipboard_tips = {"success":{"zh-CN":"复制成功 (*^▽^*)","en":"Copy successfully (*^▽^*)"},"fail":{"zh-CN":"复制失败 (ﾟ⊿ﾟ)ﾂ","en":"Copy failed (ﾟ⊿ﾟ)ﾂ"},"copyright":{"enable":false,"count":50,"license_type":"by-nc-sa"}};window.REIMU_CONFIG.clipboard_tips.copyright.content = '本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！';window.REIMU_CONFIG.code_block = {"expand":true};window.REIMU_CONFIG.base = 'https://kwisma.github.io';window.REIMU_CONFIG.relative = '/';window.REIMU_CONFIG.i18n_languages = ["en"];</script>
+  <title>
+    SFM 自动化代码 | Yuki’s Blog
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="preload" as="style" href="https://fontsapi.zeoseven.com/120/main/result.css" onload="this.rel='stylesheet'" crossorigin><link rel="preload" as="style" href="https://fontsapi.zeoseven.com/134/main/result.css" onload="this.rel='stylesheet'" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic|Noto Serif SC:400,400italic,700,700italic|Liu Jian Mao Cao:400,400italic,700,700italic&display=swap"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic|Noto Serif SC:400,400italic,700,700italic|Liu Jian Mao Cao:400,400italic,700,700italic&display=swap" media="print" onload="this.media='all'">
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@7.1.0/css/regular.min.css" integrity="sha384-4qYppzjH8EiA+cGdaubu2vL7Rk8WGiqCSj7oRuP1uwtFWkfKNHD20lPfcrbQc8dU" crossorigin="anonymous">
+<link rel="stylesheet" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@7.1.0/css/solid.min.css" integrity="sha384-wbMWab3UDSPm2kvIgVOn&#x2F;d9KPTecgPU1+Nb3zoQrm&#x2F;oVu0EkPL6IaKinjbwW0rum" crossorigin="anonymous">
+
+    <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@7.1.0/css/brands.min.css" integrity="sha384-KTGeC2hIMzpeQakhsmzB9bZfhCD5xZZCgI1iZH6f/O457SxzlkzTQg/WXFNoi3ih" crossorigin="anonymous">
+<link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@7.1.0/css/v5-font-face.min.css" integrity="sha384-nJ1ThfldViXoLpJ6jlKcP2beas8BMbYq26SG9Hi8cH89bZi4RZ644v7helMCqJxd" crossorigin="anonymous">
+<link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://npm.webcache.cn/@fortawesome/fontawesome-free@7.1.0/css/v4-font-face.min.css" integrity="sha384-UlkrhOIvZxJFd4MElSUp7ow6/RUeYKi/orfCZIRRiOENFuQPIAA3T3HjYfmBRhNq" crossorigin="anonymous">
+    
+<link rel="stylesheet" href="/css/loader.css">
+
+    <meta name="description" content="超级工厂管理（Super Factory Manager，简称 SFM）是一款强大的 Minecraft 模组，能够通过简单的代码实现复杂的自动化操作。本教程将分享一些常用的自动化代码模板，帮助玩家更高效地管理资源和机器。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SFM 自动化代码">
+<meta property="og:url" content="https://kwisma.github.io/en/2026/05/10/sfm_automation_guide/index.html">
+<meta property="og:site_name" content="Yuki’s Blog">
+<meta property="og:description" content="超级工厂管理（Super Factory Manager，简称 SFM）是一款强大的 Minecraft 模组，能够通过简单的代码实现复杂的自动化操作。本教程将分享一些常用的自动化代码模板，帮助玩家更高效地管理资源和机器。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2026-05-10T11:28:46.000Z">
+<meta property="article:modified_time" content="2026-05-12T17:00:09.389Z">
+<meta property="article:author" content="Hatsuki">
+<meta property="article:tag" content="Minecraft">
+<meta property="article:tag" content="SFM">
+<meta property="article:tag" content="模组">
+<meta property="article:tag" content="自动化">
+<meta name="twitter:card" content="summary">
+      <meta name="keywords" content="Frontend Development, JavaScript, CSS, HTML, Programming, Tech Blog">
+    <link rel="alternate" href="/atom.xml" title="Yuki’s Blog" type="application/atom+xml">
+    <link rel="shortcut icon" href="/avatar/favicon.ico">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css" integrity="sha384-IfxC36XL/toUyJ939C73PcgMuRzAZuIzZxE38drsmO5p6jD7ei+Zx/1oA/0l8ysE" crossorigin="anonymous">
+      <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://npm.webcache.cn/katex@0.16.24/dist/katex.min.css" integrity="sha384-tTgKLjMYmJr94v8qu2PE5MUGSMbyN2xiH266JUB3gpm8vnnJywd1dWSOEfrFz+YI" crossorigin="anonymous">
+      
+<link rel="stylesheet" href="https://npm.webcache.cn/@waline/client@2.15.8/dist/waline.css" integrity="sha384-vltfZtesCdl6NYVcFVcjEaIi5RpNvZe9t7fXvq8twVtcoy+Ub9QgnxUYJmwOhYCK" crossorigin="anonymous">
+
+    
+<script src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js" integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"></script>
+
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/@reimujs/aos@0.1.2/dist/aos.css" integrity="sha384-GMRP93c6Hkz9JVKGAuRR3nTS7M07RwPgTFenXiosjq2VbVgvdDNcz1g6Mkj8AONa" crossorigin="anonymous">
+
+    <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://npm.webcache.cn/aplayer@1.10.1/dist/APlayer.min.css" integrity="sha384-tLMkTWh2pfXNWGFlUS0w1TFtRG5xZ9lPWFOooj+vDDLIL+xBGQU/voDBY5XE2lVh" crossorigin="anonymous">
+    <style>
+/* 白天模式 */
+.wl-editor {
+  background-image: url("https://jsd.onmicrosoft.cn/gh/anwen-anyi/imgAnwen/images/OuNiJiang.gif");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: right bottom;
+  transition: all 0.25s ease-in-out 0s;
+  filter: invert(0);
+}
+/* 夜间模式 */
+.dark .wl-editor {
+  background-image: url("https://jsd.onmicrosoft.cn/gh/anwen-anyi/imgAnwen/images/OuNiJiang.gif");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: right bottom;
+  transition: all 0.25s ease-in-out 0s;
+  filter: invert(1);
+}
+/* mermaid 居中显示 */
+.mermaid {
+  text-align: center;
+}
+</style>
+
+<meta name="generator" content="Hexo 8.1.2"></head>
+
+  <body>
+      <div id='loader'>
+    <div class="loading-left-bg loading-bg"></div>
+    <div class="loading-right-bg loading-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi rotate">
+          <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="https://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+            <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="var(--red-1, #ff5252)" />
+            <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z 
+           M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95z" fill="var(--red-1, #ff5252)" />
+          </svg>
+      </div>
+      <div class="loading-word">Loading...</div>
+    </div>
+  </div>
+  <script>
+    var time = null;
+    var loaderEl = document.getElementById('loader');
+    var startLoading = () => {
+      time = Date.now();
+      loaderEl.classList.remove("loading");
+    }
+    var hideLoader = () => {
+      document.body.style.overflow = 'auto';
+      loader.classList.add('loading');
+    };
+
+    var endLoading = () => {
+      if (!time) {
+        hideLoader();
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          hideLoader();
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('DOMContentLoaded', endLoading);
+    loaderEl.addEventListener('click', endLoading);
+  </script>
+<div id="copy-tooltip"></div>
+<div id="heatmap-tooltip"></div>
+
+
+    <div id="container">
+      <div id="wrap">
+        <div id="header-nav">
+  <nav id="main-nav" aria-label="Primary navigation">
+        <a class="main-nav-link-wrap" href="/en/">
+            <div class="main-nav-icon icon ">
+                  &#xf015;
+            </div>
+          <span class="main-nav-link">Home</span>
+        </a>
+        <a class="main-nav-link-wrap" href="/en/archives">
+            <div class="main-nav-icon icon ">
+                  &#xf187;
+            </div>
+          <span class="main-nav-link">Archives</span>
+        </a>
+        <a class="main-nav-link-wrap" href="/en/about">
+            <div class="main-nav-icon icon ">
+                  &#xf05a;
+            </div>
+          <span class="main-nav-link">About</span>
+        </a>
+        <a class="main-nav-link-wrap" href="/en/friend">
+            <div class="main-nav-icon icon ">
+                  &#xf500;
+            </div>
+          <span class="main-nav-link">Friend</span>
+        </a>
+    <a id="main-nav-toggle" class="nav-icon" aria-label="Toggle navigation" role="button"></a>
+  </nav>
+  <nav id="sub-nav" aria-label="Secondary navigation">
+      <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed" aria-label="RSS Feed" target="_blank"></a>
+      <a id="nav-search-btn" class="nav-icon popup-trigger" title="Search" aria-label="Search"></a>
+  </nav>
+    <nav id="i18n-nav" aria-label="Language selection">
+      <div class="custom-dropdown">
+        <div class="select-selected" id="select-selected" role="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Language menu">
+          <span id="nav-language-btn" class="nav-icon" style="padding: 0 20px 0 0"></span>
+          <span id="selected-lang">English</span>
+        </div>
+        <ul class="select-items" id="select-items" role="listbox" aria-label="Languages">
+            <li data-value="zh-CN" role="option" aria-selected="false">简体中文</li>
+            <li data-value="en" role="option" class="selected" aria-selected="true">English</li>
+        </ul>
+      </div>
+      <script>
+        var selectSelected = document.getElementById("select-selected");
+        var selectedLang = document.getElementById("selected-lang");
+        var selectItems = document.getElementById("select-items");
+        var selectOptions = selectItems.querySelectorAll("li");
+
+        selectSelected.addEventListener("click", () => {
+          selectItems.classList.toggle("show");
+          var expanded = selectSelected.getAttribute("aria-expanded") === "true";
+          selectSelected.setAttribute("aria-expanded", (!expanded).toString());
+        });
+
+        selectOptions.forEach((item) => {
+          item.addEventListener("click", () => {
+            const langMap = {};
+              langMap['zh-CN'] = '/2026/05/10/sfm_automation_guide/';
+              langMap['en'] = '/en/2026/05/10/sfm_automation_guide/';
+            selectedLang.textContent = item.textContent;
+            selectItems.classList.remove("show");
+            selectOptions.forEach((option) => {
+              option.classList.remove("selected");
+            });
+            item.classList.add("selected");
+            window.location = langMap[item.dataset.value];
+          });
+        });
+
+        document.addEventListener("click", (event) => {
+          if (!event.target.closest(".custom-dropdown")) {
+            selectItems.classList.remove("show");
+            selectSelected.setAttribute("aria-expanded", "false");
+          }
+        });
+      </script>
+    </nav>
+</div>
+<header id="header" aria-label="Site header">
+        <picture>
+                <source media="(max-width: 479px)" srcset="/images/banner-600w.webp">
+                <source media="(max-width: 799px)" srcset="/images/banner-800w.webp">
+                <source media="(min-width: 800px)" srcset="/images/banner.webp">
+            <img  fetchpriority="high" src="/images/banner.webp" alt="SFM 自动化代码">
+        </picture>
+          <img alt="SFM 自动化代码" style="visibility: hidden;">
+  <div id="header-outer">
+    <div id="header-title">
+          <span id="logo">
+            <h1 data-aos="slide-up">SFM 自动化代码</h1>
+          </span>
+        <h2 id="subtitle-wrap" data-aos="slide-down">
+        </h2>
+    </div>
+  </div>
+</header>
+
+        <div id="content" aria-label="Page content" class="sidebar-left"  >
+          <aside id="sidebar" aria-label="Sidebar">
+  <div class="sidebar-wrapper-container sticky">
+      <meting-js
+        theme="var(--color-link)"
+        id="2568697963"
+        server="netease"
+        type="playlist"
+        
+        fixed="false"
+        
+        
+        
+        preload="false"
+        
+        
+        list-folded="true"
+        
+      ></meting-js>
+  <div class="sidebar-wrapper">
+    <div class="sidebar-wrap" data-aos="fade-up">
+          <div class="sidebar-toc-sidebar"><h3 class="toc-title">Contents</h3>
+<div class="sidebar-toc-wrapper toc-div-class" >
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%81%8C%E6%B3%A8%E6%9C%BA"><span class="toc-number">1.</span> <span class="toc-text"> 灌注机</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%9C%82%E8%9C%9C%E6%94%B6%E9%9B%86"><span class="toc-number">2.</span> <span class="toc-text"> 蜂蜜收集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A3%82%E5%8F%98%E7%87%83%E6%96%99"><span class="toc-number">3.</span> <span class="toc-text"> 裂变燃料</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E7%BA%A7%E7%9F%BF%E4%BA%A7"><span class="toc-number">4.</span> <span class="toc-text"> 四级矿产</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%86%94%E7%82%BC%E5%B7%A5%E5%8E%82"><span class="toc-number">5.</span> <span class="toc-text"> 熔炼工厂</span></a></li></ol>
+</div>
+</div>
+          <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img data-src="/avatar/avatar.webp" data-sizes="auto" alt="Hatsuki" class="lazyload">
+  <div class="sidebar-author-name">Hatsuki</div>
+  <div class="sidebar-description">May the world be as you and I wish it to be.</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>Post</div>
+    <div class="sidebar-state-number">22</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>Category</div>
+    <div class="sidebar-state-number">3</div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>Tag</div>
+    <div class="sidebar-state-number">71</div>
+  </div>
+</div>
+<div class="sidebar-social" >
+</div>
+<div class="sidebar-menu">
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/en/" aria-label="Home"></a>
+          <div class="sidebar-menu-icon icon ">
+                &#xf015;
+          </div>
+        <div class="sidebar-menu-link">Home</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/en/archives" aria-label="Archives"></a>
+          <div class="sidebar-menu-icon icon ">
+                &#xf187;
+          </div>
+        <div class="sidebar-menu-link">Archives</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/en/about" aria-label="About"></a>
+          <div class="sidebar-menu-icon icon ">
+                &#xf05a;
+          </div>
+        <div class="sidebar-menu-link">About</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/en/friend" aria-label="Friend"></a>
+          <div class="sidebar-menu-icon icon ">
+                &#xf500;
+          </div>
+        <div class="sidebar-menu-link">Friend</div>
+      </div>
+</div>
+</div>
+          <div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div>
+    </div>
+  </div>
+  <div class="sidebar-widget">
+  </div>
+  </div>
+</aside>
+
+          <section id="main" aria-label="Main content"><article id="post-sfm_automation_guide" class="h-entry article" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner" data-aos="fade-up">
+    <div class="article-meta">
+      <div class="article-date">
+  <span class="article-date-link icon-calendar" data-aos="zoom-in">
+    <time datetime="2026-05-10T11:28:46.000Z" itemprop="datePublished">2026-05-10</time>
+    <time style="display: none;" id="post-update-time">2026-05-13</time>
+  </span>
+</div>
+
+    </div>
+    
+    <div class="hr-line"></div>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+        <p>超级工厂管理（Super Factory Manager，简称 SFM）是一款强大的 Minecraft 模组，能够通过简单的代码实现复杂的自动化操作。本教程将分享一些常用的自动化代码模板，帮助玩家更高效地管理资源和机器。</p>
+<span id="more"></span>
+<h2 id="灌注机"><a class="markdownIt-Anchor" href="#灌注机"></a> 灌注机</h2>
+<p>批量燃烧物品，全自动熔炼</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">name <span class="string">&quot;灌注机自动化&quot;</span>  <span class="comment">-- 定义机器的名称</span></span><br><span class="line"></span><br><span class="line">every <span class="number">1</span> ticks <span class="keyword">do</span>  <span class="comment">-- 每1个刻（tick）执行以下操作</span></span><br><span class="line">    <span class="built_in">input</span> forge_energy:: from <span class="string">&quot;能量&quot;</span> top side  <span class="comment">-- 从顶部立方体输入锻造能量</span></span><br><span class="line">    <span class="built_in">output</span> forge_energy:: to <span class="string">&quot;机器&quot;</span>  <span class="comment">-- 将能量输出到机器</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">every <span class="number">20</span> ticks <span class="keyword">do</span>  <span class="comment">-- 每20个刻（tick）执行以下操作</span></span><br><span class="line">    <span class="built_in">input</span> fluid:: from <span class="string">&quot;水槽&quot;</span>  <span class="comment">-- 从水槽输入液体</span></span><br><span class="line">    <span class="built_in">output</span> fluid:: to each <span class="string">&quot;机器&quot;</span>  <span class="comment">-- 将液体输出到每台机器</span></span><br><span class="line">    forget  <span class="comment">-- 清除状态，确保后续操作不受之前步骤影响</span></span><br><span class="line">    <span class="built_in">input</span> *phyto* from <span class="string">&quot;肥料箱&quot;</span>  <span class="comment">-- 从肥料箱输入“*phyto*”资源</span></span><br><span class="line">    <span class="built_in">output</span> to each <span class="string">&quot;机器&quot;</span>  <span class="comment">-- 将其输出到每台机器</span></span><br><span class="line">    forget  <span class="comment">-- 清除状态，确保后续操作不受之前步骤影响</span></span><br><span class="line">    <span class="keyword">if</span> insolator has &lt;<span class="number">1</span> *seeds* <span class="keyword">then</span>  <span class="comment">-- 如果机器中少于1个“*seeds*”</span></span><br><span class="line">        <span class="built_in">input</span> *seeds* from <span class="string">&quot;种子箱&quot;</span>  <span class="comment">-- 从主箱子输入“*seeds*”</span></span><br><span class="line">        <span class="built_in">output</span> <span class="number">1</span> to each <span class="string">&quot;机器&quot;</span>  <span class="comment">-- 每台机器输出1个“*seeds*”</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    forget  <span class="comment">-- 清除状态，确保后续操作不受之前步骤影响</span></span><br><span class="line">    <span class="built_in">input</span> from <span class="string">&quot;机器&quot;</span> slots <span class="number">2</span><span class="number">-5</span>  <span class="comment">-- 从机器的第2到第5槽位输入物品</span></span><br><span class="line">    <span class="built_in">output</span> *seeds* to <span class="string">&quot;种子箱&quot;</span>  <span class="comment">-- 将“*seeds*”输出到主箱子</span></span><br><span class="line">    <span class="built_in">output</span> to <span class="string">&quot;箱子&quot;</span>  <span class="comment">-- 将其余物品输出到chest</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h2 id="蜂蜜收集"><a class="markdownIt-Anchor" href="#蜂蜜收集"></a> 蜂蜜收集</h2>
+<p>全自动收集</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">name <span class="string">&quot;蜜蜂资源&quot;</span>  <span class="comment">-- 定义机器的名称</span></span><br><span class="line"></span><br><span class="line">every <span class="number">1</span> ticks <span class="keyword">do</span>  <span class="comment">-- 每1个刻（tick）执行以下操作</span></span><br><span class="line">    <span class="built_in">input</span> forge_energy:: from <span class="string">&quot;能量&quot;</span> top side  <span class="comment">-- 从顶部立方体输入锻造能量</span></span><br><span class="line">    <span class="built_in">output</span> forge_energy:: to each <span class="string">&quot;机器&quot;</span>  <span class="comment">-- 将能量输出到机器</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">every <span class="number">20</span> ticks <span class="keyword">do</span>  <span class="comment">-- 每20个刻（tick）执行以下操作</span></span><br><span class="line"><span class="comment">-- 基因提取</span></span><br><span class="line">    <span class="built_in">input</span> from <span class="string">&quot;me接口&quot;</span></span><br><span class="line">    <span class="built_in">output</span> *glass_bottle to <span class="string">&quot;蜂箱&quot;</span> slots <span class="number">0</span></span><br><span class="line">    <span class="built_in">output</span> *glass_bottle to <span class="string">&quot;装瓶机&quot;</span> slots <span class="number">0</span></span><br><span class="line">    <span class="built_in">output</span> *rose_bush to <span class="string">&quot;繁殖箱&quot;</span></span><br><span class="line">    <span class="built_in">output</span> *honey_treat to <span class="string">&quot;孵化机&quot;</span> slots <span class="number">1</span></span><br><span class="line">    <span class="built_in">output</span> *bee_cage to <span class="string">&quot;繁殖箱&quot;</span> slots <span class="number">0</span></span><br><span class="line">    forget  <span class="comment">-- 清除状态，确保后续操作不受之前步骤影响</span></span><br><span class="line">    <span class="built_in">input</span> from <span class="string">&quot;繁殖箱&quot;</span>slots <span class="number">5</span></span><br><span class="line">    <span class="built_in">output</span> to <span class="string">&quot;孵化机&quot;</span> slots <span class="number">0</span></span><br><span class="line">    forget  <span class="comment">-- 清除状态，确保后续操作不受之前步骤影响</span></span><br><span class="line">    <span class="built_in">input</span> from <span class="string">&quot;离心机&quot;</span> slots <span class="number">2</span><span class="number">-10</span></span><br><span class="line">    <span class="built_in">output</span> *gene to <span class="string">&quot;基因检索器&quot;</span></span><br><span class="line">    <span class="built_in">output</span> to <span class="string">&quot;me接口&quot;</span></span><br><span class="line">    forget  <span class="comment">-- 清除状态，确保后续操作不受之前步骤影响</span></span><br><span class="line">    <span class="built_in">input</span> from <span class="string">&quot;装瓶机&quot;</span> slots <span class="number">11</span></span><br><span class="line">    <span class="built_in">output</span> to <span class="string">&quot;me接口&quot;</span></span><br><span class="line">    forget  <span class="comment">-- 清除状态，确保后续操作不受之前步骤影响</span></span><br><span class="line"><span class="comment">-- 养蜜蜂</span></span><br><span class="line">    <span class="built_in">input</span> from <span class="string">&quot;蜂箱&quot;</span> slots <span class="number">2</span><span class="number">-10</span></span><br><span class="line">    <span class="built_in">output</span></span><br><span class="line">        *configurable_comb,</span><br><span class="line">        *configurable_honeycomb,</span><br><span class="line">    to <span class="string">&quot;热力离心机&quot;</span> slots <span class="number">1</span></span><br><span class="line">    <span class="built_in">output</span> *gene to <span class="string">&quot;基因检索器&quot;</span></span><br><span class="line">    <span class="built_in">output</span> EXCEPT</span><br><span class="line">        *configurable_comb,</span><br><span class="line">        *configurable_honeycomb,</span><br><span class="line">        *gene,</span><br><span class="line">    to <span class="string">&quot;me接口&quot;</span></span><br><span class="line">    forget  <span class="comment">-- 清除状态，确保后续操作不受之前步骤影响</span></span><br><span class="line"><span class="comment">-- 离心机输出</span></span><br><span class="line">    <span class="built_in">input</span> from <span class="string">&quot;热力离心机&quot;</span> slots <span class="number">2</span><span class="number">-10</span></span><br><span class="line">    <span class="built_in">output</span> to <span class="string">&quot;me接口&quot;</span></span><br><span class="line">    forget  <span class="comment">-- 清除状态，确保后续操作不受之前步骤影响</span></span><br><span class="line">    <span class="built_in">input</span> fluid:: from <span class="string">&quot;热力离心机&quot;</span></span><br><span class="line">    <span class="built_in">output</span> fluid:: to <span class="string">&quot;me接口&quot;</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h2 id="裂变燃料"><a class="markdownIt-Anchor" href="#裂变燃料"></a> 裂变燃料</h2>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 摆放循序：电解分离器 &gt;  化学灌注器a &gt; 化学氧化机a &gt; 回旋式气液转换机 &gt; 化学灌注器b &gt; 化学溶解室 &gt; 化学灌注器c &gt; 化学氧化机b &gt; 同位素离心机</span></span><br><span class="line">name <span class="string">&quot;裂变燃料&quot;</span>  <span class="comment">-- 定义机器的名称</span></span><br><span class="line"></span><br><span class="line">every <span class="number">1</span> ticks <span class="keyword">do</span>  <span class="comment">-- 每1个刻（tick）执行以下操作</span></span><br><span class="line">    <span class="built_in">input</span> forge_energy:: from <span class="string">&quot;能量&quot;</span> top side  <span class="comment">-- 从顶部立方体输入锻造能量</span></span><br><span class="line">    <span class="built_in">output</span> forge_energy:: to each <span class="string">&quot;机器&quot;</span> bottom side <span class="comment">-- 将能量输出到机器</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">every <span class="number">20</span> ticks <span class="keyword">do</span>  <span class="comment">-- 每20个刻（tick）执行以下操作</span></span><br><span class="line">    <span class="built_in">input</span> fluid:: from <span class="string">&quot;水槽&quot;</span> top side</span><br><span class="line">    <span class="built_in">output</span> fluid:: to each <span class="string">&quot;电解分离器&quot;</span> bottom side</span><br><span class="line">    <span class="built_in">output</span> fluid:: to each <span class="string">&quot;回旋式气液转换机&quot;</span> bottom side</span><br><span class="line">    <span class="built_in">output</span> fluid:: to each <span class="string">&quot;加压反应室&quot;</span> bottom side</span><br><span class="line">    forget</span><br><span class="line">    <span class="built_in">input</span> from <span class="string">&quot;me接口&quot;</span></span><br><span class="line">    <span class="built_in">output</span> *fluorite to <span class="string">&quot;化学溶解室&quot;</span> bottom side</span><br><span class="line">    <span class="built_in">output</span> *sulfur to <span class="string">&quot;化学氧化机a&quot;</span> bottom side</span><br><span class="line">    <span class="built_in">output</span> *yellow_cake_uranium to <span class="string">&quot;化学氧化机b&quot;</span> bottom side</span><br><span class="line">    <span class="built_in">output</span> *fluorite_dust to <span class="string">&quot;加压反应室&quot;</span> top side</span><br><span class="line">    forget</span><br><span class="line">    <span class="built_in">input</span> gas:mekanism:sulfur_trioxide from <span class="string">&quot;化学灌注器a&quot;</span> bottom side</span><br><span class="line">    <span class="built_in">output</span> gas:mekanism:sulfur_trioxide to <span class="string">&quot;化学灌注器b&quot;</span> bottom side</span><br><span class="line">    forget</span><br><span class="line">    <span class="built_in">input</span> gas:mekanism:uranium_hexafluoride from <span class="string">&quot;化学灌注器c&quot;</span> bottom side</span><br><span class="line">    <span class="built_in">output</span> gas:mekanism:uranium_hexafluoride to <span class="string">&quot;同位数离心机&quot;</span> bottom side</span><br><span class="line">    forget</span><br><span class="line">    <span class="built_in">input</span> gas:mekanism:fissile_fuel from <span class="string">&quot;同位数离心机&quot;</span> front side</span><br><span class="line">    <span class="built_in">output</span> gas:mekanism:fissile_fuel to <span class="string">&quot;化学储罐&quot;</span> bottom side</span><br><span class="line">    forget</span><br><span class="line">    <span class="built_in">input</span> pellet_plutonium from <span class="string">&quot;加压反应室&quot;</span> bottom side</span><br><span class="line">    <span class="built_in">output</span> to <span class="string">&quot;me接口&quot;</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h2 id="四级矿产"><a class="markdownIt-Anchor" href="#四级矿产"></a> 四级矿产</h2>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 机器可无序摆放</span></span><br><span class="line">name <span class="string">&quot;4级矿产&quot;</span>  <span class="comment">-- 定义机器的名称</span></span><br><span class="line"></span><br><span class="line">every <span class="number">1</span> ticks <span class="keyword">do</span>  <span class="comment">-- 每1个刻（tick）执行以下操作</span></span><br><span class="line">    <span class="built_in">input</span> forge_energy:: from <span class="string">&quot;能量&quot;</span> top side  <span class="comment">-- 从顶部立方体输入锻造能量</span></span><br><span class="line">    <span class="built_in">output</span> forge_energy:: to each <span class="string">&quot;机器&quot;</span> bottom side <span class="comment">-- 将能量输出到机器</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">every <span class="number">20</span> ticks <span class="keyword">do</span>  <span class="comment">-- 每20个刻（tick）执行以下操作</span></span><br><span class="line">    <span class="built_in">input</span> fluid:: from <span class="string">&quot;水槽&quot;</span> top side</span><br><span class="line">    <span class="built_in">output</span> fluid:: to each <span class="string">&quot;电解分离器&quot;</span> top side</span><br><span class="line">    <span class="built_in">output</span> fluid:: to each <span class="string">&quot;回旋式气液转换机&quot;</span> top side</span><br><span class="line">    <span class="built_in">output</span> fluid:: to each <span class="string">&quot;化学清洗机&quot;</span> top side</span><br><span class="line">    <span class="built_in">output</span> fluid:: to each <span class="string">&quot;电解分离器2&quot;</span> top side</span><br><span class="line">    <span class="built_in">output</span> fluid:: to each <span class="string">&quot;电解分离器3&quot;</span> top side</span><br><span class="line">    forget</span><br><span class="line">    <span class="built_in">input</span> from <span class="string">&quot;me接口&quot;</span> top side</span><br><span class="line">    <span class="built_in">output</span> alltheores:sulfur to <span class="string">&quot;化学氧化机&quot;</span> top side <span class="comment">-- 输入硫磺</span></span><br><span class="line">    forget</span><br><span class="line">    <span class="comment">-- 从右侧抽取氧</span></span><br><span class="line">    <span class="built_in">input</span> slurry:mekanism:oxygen from each  <span class="string">&quot;电解分离器&quot;</span> west side</span><br><span class="line">    <span class="built_in">output</span> slurry:mekanism:oxygen to <span class="string">&quot;化学灌注室a&quot;</span> west side</span><br><span class="line">    forget</span><br><span class="line">    <span class="comment">-- 从右侧抽取二氧化硫</span></span><br><span class="line">    <span class="built_in">input</span> slurry:mekanism:sulfur_dioxide from each <span class="string">&quot;化学氧化机&quot;</span> west side</span><br><span class="line">    <span class="built_in">output</span> slurry:mekanism:sulfur_dioxide to <span class="string">&quot;化学灌注室a&quot;</span> east side</span><br><span class="line">    forget</span><br><span class="line">    <span class="built_in">input</span> chemical:mekanism:sulfur_trioxide  from each <span class="string">&quot;化学灌注室a&quot;</span> north side</span><br><span class="line">    <span class="built_in">output</span> chemical:mekanism:sulfur_trioxide to <span class="string">&quot;化学灌注室b&quot;</span> east side</span><br><span class="line">    forget</span><br><span class="line">    <span class="built_in">input</span> slurry:mekanism:water_vapor from each <span class="string">&quot;回旋式气液转换机&quot;</span> west side</span><br><span class="line">    <span class="built_in">output</span> slurry:mekanism:water_vapor to <span class="string">&quot;化学灌注室b&quot;</span> west side</span><br><span class="line">    forget</span><br><span class="line">    <span class="built_in">input</span> slurry:mekanism:sulfuric_acid from each <span class="string">&quot;化学灌注室b&quot;</span> north side</span><br><span class="line">    <span class="built_in">output</span> slurry:mekanism:sulfuric_acid to <span class="string">&quot;化学溶解室&quot;</span> east side</span><br><span class="line">    forget</span><br><span class="line">    <span class="built_in">input</span> infusion:: from each <span class="string">&quot;化学溶解室&quot;</span> west side</span><br><span class="line">    <span class="built_in">output</span> infusion:: to <span class="string">&quot;化学清洗机&quot;</span> east side</span><br><span class="line">    forget</span><br><span class="line">    <span class="built_in">input</span> infusion:: from each <span class="string">&quot;化学清洗机&quot;</span> west side</span><br><span class="line">    <span class="built_in">output</span> infusion:: to <span class="string">&quot;化学结晶室&quot;</span> east side</span><br><span class="line">    forget</span><br><span class="line">    <span class="built_in">input</span> from each <span class="string">&quot;化学结晶室&quot;</span> west side</span><br><span class="line">    <span class="built_in">output</span> to <span class="string">&quot;化学压射室&quot;</span> east side</span><br><span class="line">    forget</span><br><span class="line">    <span class="built_in">input</span> fluid:: from each <span class="string">&quot;盐水&quot;</span> top side</span><br><span class="line">    <span class="built_in">output</span> fluid:: to <span class="string">&quot;电解分离器1&quot;</span> top side</span><br><span class="line">    forget</span><br><span class="line">    <span class="built_in">input</span> slurry:mekanism:chlorine from each <span class="string">&quot;电解分离器1&quot;</span> west side</span><br><span class="line">    <span class="built_in">output</span> slurry:mekanism:chlorine to <span class="string">&quot;化学灌注室1&quot;</span> west side</span><br><span class="line">    forget</span><br><span class="line">    <span class="built_in">input</span> slurry:mekanism:hydrogen from  each <span class="string">&quot;电解分离器2&quot;</span> east side</span><br><span class="line">    <span class="built_in">output</span> slurry:mekanism:hydrogen to <span class="string">&quot;化学灌注室1&quot;</span> east side</span><br><span class="line">    forget</span><br><span class="line">    <span class="built_in">input</span> slurry:mekanism:hydrogen_chloride  from each <span class="string">&quot;化学灌注室1&quot;</span> north side</span><br><span class="line">    <span class="built_in">output</span> slurry:mekanism:hydrogen_chloride to <span class="string">&quot;化学压射室&quot;</span> top side</span><br><span class="line">    forget</span><br><span class="line">    <span class="built_in">input</span> from each <span class="string">&quot;化学压射室&quot;</span> west side</span><br><span class="line">    <span class="built_in">output</span> to <span class="string">&quot;提纯工厂&quot;</span> east side</span><br><span class="line">    forget</span><br><span class="line">    <span class="built_in">input</span> slurry:mekanism:oxygen from each <span class="string">&quot;电解分离器3&quot;</span> west side</span><br><span class="line">    <span class="built_in">output</span> slurry:mekanism:oxygen to <span class="string">&quot;提纯工厂&quot;</span> top side</span><br><span class="line">    forget</span><br><span class="line">    <span class="built_in">input</span> from each <span class="string">&quot;提纯工厂&quot;</span> west side</span><br><span class="line">    <span class="built_in">output</span> to <span class="string">&quot;粉碎机&quot;</span> east side</span><br><span class="line">    forget</span><br><span class="line">    <span class="built_in">input</span> from each <span class="string">&quot;粉碎机&quot;</span> west side</span><br><span class="line">    <span class="built_in">output</span> to <span class="string">&quot;富集工厂&quot;</span> east side</span><br><span class="line">    forget</span><br><span class="line">    <span class="built_in">input</span> from each <span class="string">&quot;富集工厂&quot;</span> west side</span><br><span class="line">    <span class="built_in">output</span> to <span class="string">&quot;熔炼工厂&quot;</span> east side</span><br><span class="line">    forget</span><br><span class="line">    <span class="built_in">input</span> from each <span class="string">&quot;熔炼工厂&quot;</span> west side</span><br><span class="line">    <span class="built_in">output</span> to <span class="string">&quot;me接口&quot;</span> east side</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h2 id="熔炼工厂"><a class="markdownIt-Anchor" href="#熔炼工厂"></a> 熔炼工厂</h2>
+<blockquote>
+<p>沙砾和沙子产物处理</p>
+</blockquote>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 沙砾和沙子产物处理</span></span><br><span class="line">name <span class="string">&quot;熔炼工厂&quot;</span>  <span class="comment">-- 定义机器的名称</span></span><br><span class="line"></span><br><span class="line">every <span class="number">1</span> ticks <span class="keyword">do</span>  <span class="comment">-- 每1个刻（tick）执行以下操作</span></span><br><span class="line">    <span class="built_in">input</span> forge_energy:: from <span class="string">&quot;能量&quot;</span> top side  <span class="comment">-- 从顶部立方体输入锻造能量</span></span><br><span class="line">    <span class="built_in">output</span> forge_energy:: to each <span class="string">&quot;机器&quot;</span> bottom side <span class="comment">-- 将能量输出到机器</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">every <span class="number">20</span> ticks <span class="keyword">do</span></span><br><span class="line">    <span class="built_in">input</span> from  <span class="string">&quot;me接口&quot;</span> top side</span><br><span class="line">    <span class="built_in">output</span> minecraft:gravel to each <span class="string">&quot;筛子&quot;</span> slots <span class="number">2</span><span class="number">-10</span></span><br><span class="line">    <span class="built_in">output</span> <span class="number">1</span> exdeorum:netherite_mesh to each <span class="string">&quot;筛子&quot;</span> slots <span class="number">1</span></span><br><span class="line">    <span class="built_in">output</span> <span class="number">3</span> exmachinis:diamond_upgrade to each <span class="string">&quot;筛子&quot;</span> slots <span class="number">0</span></span><br><span class="line">    <span class="built_in">output</span> minecraft:sand to each <span class="string">&quot;筛子2&quot;</span> slots <span class="number">2</span><span class="number">-10</span></span><br><span class="line">    <span class="built_in">output</span> <span class="number">1</span> exdeorum:netherite_mesh to each <span class="string">&quot;筛子2&quot;</span> slots <span class="number">1</span></span><br><span class="line">    <span class="built_in">output</span> <span class="number">3</span> exmachinis:diamond_upgrade to each <span class="string">&quot;筛子2&quot;</span> slots <span class="number">0</span></span><br><span class="line">    forget</span><br><span class="line">    <span class="built_in">input</span> from each <span class="string">&quot;缓存&quot;</span> top side</span><br><span class="line">    <span class="built_in">output</span> to <span class="string">&quot;处理&quot;</span> top side</span><br><span class="line">    forget</span><br><span class="line">    <span class="built_in">input</span></span><br><span class="line">        minecraft:gold_ore,</span><br><span class="line">        minecraft:iron_ore,</span><br><span class="line">        alltheores:platinum_ore,</span><br><span class="line">        alltheores:lead_ore,</span><br><span class="line">        minecraft:copper_ore,</span><br><span class="line">        alltheores:aluminum_ore,</span><br><span class="line">        alltheores:silver_ore,</span><br><span class="line">        alltheores:osmium_ore,</span><br><span class="line">        alltheores:tin_ore,</span><br><span class="line">        alltheores:nickel_ore,</span><br><span class="line">        alltheores:zinc_ore,</span><br><span class="line">        alltheores:uranium_ore,</span><br><span class="line">    from <span class="string">&quot;处理&quot;</span> top side</span><br><span class="line">    <span class="built_in">output</span> to each <span class="string">&quot;熔炉&quot;</span> top side</span><br><span class="line">    forget</span><br><span class="line">    <span class="built_in">input</span></span><br><span class="line">        allthemodium:allthemodium_nugget,</span><br><span class="line">        minecraft:emerald,</span><br><span class="line">        xycraft_world:xychorium_gem_red,</span><br><span class="line">        actuallyadditions:black_quartz,</span><br><span class="line">        minecraft:coal,</span><br><span class="line">        minecraft:flint,</span><br><span class="line">        alltheores:salt,</span><br><span class="line">        alltheores:sulfur,</span><br><span class="line">        forbidden_arcanus:arcane_crystal,</span><br><span class="line">        minecraft:amethyst_shard,</span><br><span class="line">        minecraft:redstone,</span><br><span class="line">        minecraft:blaze_powder,</span><br><span class="line">        minecraft:gunpowder,</span><br><span class="line">        minecraft:sea_pickle,</span><br><span class="line">        minecraft:prismarine_shard,</span><br><span class="line">        minecraft:prismarine_crystals,</span><br><span class="line">        minecraft:kelp,</span><br><span class="line">        alltheores:fluorite,</span><br><span class="line">        xycraft_world:xychorium_gem_dark,</span><br><span class="line">        powah:uraninite,</span><br><span class="line">        xycraft_world:xychorium_gem_light,</span><br><span class="line">        minecraft:cactus,</span><br><span class="line">        ae2:charged_certus_quartz_crystal,</span><br><span class="line">        enderio:grains_of_infinity,</span><br><span class="line">        minecraft:iron_nugget,</span><br><span class="line">        minecraft:diamond,</span><br><span class="line">        ae2:certus_quartz_dust,</span><br><span class="line">        ae2:certus_quartz_crystal,</span><br><span class="line">        xycraft_world:xychorium_gem_blue,</span><br><span class="line">        xycraft_world:xychorium_gem_green,</span><br><span class="line">        minecraft:glowstone_dust,</span><br><span class="line">        minecraft:bone_meal,</span><br><span class="line">        ae2:sky_dust,</span><br><span class="line">        minecraft:lapis_lazuli,</span><br><span class="line">    from <span class="string">&quot;处理&quot;</span> top side</span><br><span class="line">    <span class="built_in">output</span> to <span class="string">&quot;me接口&quot;</span> top side</span><br><span class="line">    forget</span><br><span class="line">    <span class="built_in">input</span> from each <span class="string">&quot;熔炉&quot;</span> bottom side</span><br><span class="line">    <span class="built_in">output</span> to <span class="string">&quot;me接口&quot;</span> top side</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>深板岩</p>
+</blockquote>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">name <span class="string">&quot;深板岩筛矿&quot;</span>  <span class="comment">-- 定义机器的名称</span></span><br><span class="line"></span><br><span class="line">every <span class="number">1</span> ticks <span class="keyword">do</span>  <span class="comment">-- 每1个刻（tick）执行以下操作</span></span><br><span class="line">    <span class="built_in">input</span> forge_energy:: from <span class="string">&quot;能量&quot;</span> top side  <span class="comment">-- 从顶部立方体输入锻造能量</span></span><br><span class="line">    <span class="built_in">output</span> forge_energy:: to each <span class="string">&quot;机器&quot;</span> bottom side <span class="comment">-- 将能量输出到机器</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">every <span class="number">20</span> ticks <span class="keyword">do</span></span><br><span class="line">    <span class="built_in">input</span> from  <span class="string">&quot;me接口&quot;</span> top side</span><br><span class="line">    <span class="built_in">output</span> *cobbled_deepslate_9x to each <span class="string">&quot;粉碎&quot;</span> top side</span><br><span class="line"><span class="comment">--    output 1 exdeorum:netherite_mesh to each &quot;筛子&quot; slots 1</span></span><br><span class="line"><span class="comment">--    output 3 exmachinis:diamond_upgrade to each &quot;筛子&quot; slots 0</span></span><br><span class="line">    forget</span><br><span class="line">    <span class="built_in">input</span> *crushed_deepslate_9x from <span class="string">&quot;粉碎&quot;</span> north side</span><br><span class="line">    <span class="built_in">output</span> *crushed_deepslate_9x to <span class="string">&quot;合成&quot;</span> slots <span class="number">2</span></span><br><span class="line">    forget</span><br><span class="line">    <span class="built_in">input</span> *crushed_deepslate_7x from <span class="string">&quot;合成&quot;</span> slots <span class="number">0</span></span><br><span class="line">    <span class="built_in">output</span> *crushed_deepslate_7x to <span class="string">&quot;合成2&quot;</span> slots <span class="number">2</span></span><br><span class="line">    forget</span><br><span class="line">    <span class="built_in">input</span> *crushed_deepslate_5x from <span class="string">&quot;合成2&quot;</span> west side slots <span class="number">0</span></span><br><span class="line">    <span class="built_in">output</span> *crushed_deepslate_5x to <span class="string">&quot;合成3&quot;</span> slots <span class="number">2</span></span><br><span class="line">    forget</span><br><span class="line">    <span class="built_in">input</span> *crushed_deepslate_3x from <span class="string">&quot;合成3&quot;</span> slots <span class="number">0</span></span><br><span class="line">    <span class="built_in">output</span> *crushed_deepslate_3x to <span class="string">&quot;合成4&quot;</span> slots <span class="number">2</span></span><br><span class="line">    forget</span><br><span class="line">    <span class="built_in">input</span> *crushed_deepslate_1x from <span class="string">&quot;合成4&quot;</span> slots <span class="number">0</span></span><br><span class="line">    <span class="built_in">output</span> *crushed_deepslate_1x to <span class="string">&quot;合成5&quot;</span> slots <span class="number">2</span></span><br><span class="line">    forget</span><br><span class="line">    <span class="built_in">input</span> *crushed_deepslate from <span class="string">&quot;合成5&quot;</span>  slots <span class="number">0</span></span><br><span class="line">    <span class="built_in">output</span> to each <span class="string">&quot;筛子&quot;</span> slots <span class="number">2</span><span class="number">-10</span></span><br><span class="line">    forget</span><br><span class="line">    <span class="built_in">input</span> from each <span class="string">&quot;缓存&quot;</span> top side</span><br><span class="line">    <span class="built_in">output</span> to <span class="string">&quot;处理&quot;</span> top side</span><br><span class="line">    forget</span><br><span class="line">    <span class="built_in">input</span></span><br><span class="line">        alltheores:tin_ore,</span><br><span class="line">        alltheores:osmium_ore,</span><br><span class="line">        alltheores:silver_ore,</span><br><span class="line">        minecraft:copper_ore,</span><br><span class="line">        alltheores:lead_ore,</span><br><span class="line">        alltheores:platinum_ore,</span><br><span class="line">        minecraft:iron_ore,</span><br><span class="line">        minecraft:gold_ore,</span><br><span class="line">        alltheores:nickel_ore,</span><br><span class="line">        alltheores:uranium_ore,</span><br><span class="line">    from <span class="string">&quot;处理&quot;</span> top side</span><br><span class="line">    <span class="built_in">output</span> to each <span class="string">&quot;熔炉&quot;</span> top side</span><br><span class="line">    forget</span><br><span class="line">    <span class="built_in">input</span></span><br><span class="line">        minecraft:amethyst_shard,</span><br><span class="line">        minecraft:lapis_lazuli,</span><br><span class="line">    from <span class="string">&quot;处理&quot;</span> top side</span><br><span class="line">    <span class="built_in">output</span> to <span class="string">&quot;me接口&quot;</span> top side</span><br><span class="line">    forget</span><br><span class="line">    <span class="built_in">input</span> from each <span class="string">&quot;熔炉&quot;</span> bottom side</span><br><span class="line">    <span class="built_in">output</span> to <span class="string">&quot;me接口&quot;</span> top side</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>尘土</p>
+</blockquote>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">name <span class="string">&quot;尘土筛矿&quot;</span>  <span class="comment">-- 定义机器的名称</span></span><br><span class="line"></span><br><span class="line">every <span class="number">1</span> ticks <span class="keyword">do</span>  <span class="comment">-- 每1个刻（tick）执行以下操作</span></span><br><span class="line">    <span class="built_in">input</span> forge_energy:: from <span class="string">&quot;能量&quot;</span> top side  <span class="comment">-- 从顶部立方体输入锻造能量</span></span><br><span class="line">    <span class="built_in">output</span> forge_energy:: to each <span class="string">&quot;机器&quot;</span> bottom side <span class="comment">-- 将能量输出到机器</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">every <span class="number">20</span> ticks <span class="keyword">do</span></span><br><span class="line">    <span class="built_in">input</span> from  <span class="string">&quot;me接口&quot;</span> top side</span><br><span class="line">    <span class="built_in">output</span> exdeorum:dust to each <span class="string">&quot;筛子&quot;</span> slots <span class="number">2</span><span class="number">-10</span></span><br><span class="line"><span class="comment">--    output 1 exdeorum:netherite_mesh to each &quot;筛子&quot; slots 1</span></span><br><span class="line"><span class="comment">--    output 3 exmachinis:diamond_upgrade to each &quot;筛子&quot; slots 0</span></span><br><span class="line">    forget</span><br><span class="line">    <span class="built_in">input</span> from each <span class="string">&quot;缓存&quot;</span> top side</span><br><span class="line">    <span class="built_in">output</span> to <span class="string">&quot;me接口&quot;</span> top side</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>沙子</p>
+</blockquote>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">name <span class="string">&quot;沙子筛矿&quot;</span>  <span class="comment">-- 定义机器的名称</span></span><br><span class="line"></span><br><span class="line">every <span class="number">1</span> ticks <span class="keyword">do</span>  <span class="comment">-- 每1个刻（tick）执行以下操作</span></span><br><span class="line">    <span class="built_in">input</span> forge_energy:: from <span class="string">&quot;能量&quot;</span> top side  <span class="comment">-- 从顶部立方体输入锻造能量</span></span><br><span class="line">    <span class="built_in">output</span> forge_energy:: to each <span class="string">&quot;机器&quot;</span> bottom side <span class="comment">-- 将能量输出到机器</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">every <span class="number">20</span> ticks <span class="keyword">do</span></span><br><span class="line">    <span class="built_in">input</span> from  <span class="string">&quot;me接口&quot;</span> top side</span><br><span class="line">    <span class="built_in">output</span> minecraft:sand to each <span class="string">&quot;筛子&quot;</span> slots <span class="number">2</span><span class="number">-10</span></span><br><span class="line"><span class="comment">--    output 1 exdeorum:netherite_mesh to each &quot;筛子&quot; slots 1</span></span><br><span class="line"><span class="comment">--    output 3 exmachinis:diamond_upgrade to each &quot;筛子&quot; slots 0</span></span><br><span class="line">    forget</span><br><span class="line">    <span class="built_in">input</span> from each <span class="string">&quot;缓存&quot;</span> top side</span><br><span class="line">    <span class="built_in">output</span> to <span class="string">&quot;me接口&quot;</span> top side</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>沙砾</p>
+</blockquote>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">name <span class="string">&quot;沙砾筛矿&quot;</span>  <span class="comment">-- 定义机器的名称</span></span><br><span class="line"></span><br><span class="line">every <span class="number">1</span> ticks <span class="keyword">do</span>  <span class="comment">-- 每1个刻（tick）执行以下操作</span></span><br><span class="line">    <span class="built_in">input</span> forge_energy:: from <span class="string">&quot;能量&quot;</span> top side  <span class="comment">-- 从顶部立方体输入锻造能量</span></span><br><span class="line">    <span class="built_in">output</span> forge_energy:: to each <span class="string">&quot;机器&quot;</span> bottom side <span class="comment">-- 将能量输出到机器</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">every <span class="number">20</span> ticks <span class="keyword">do</span></span><br><span class="line">    <span class="built_in">input</span> from  <span class="string">&quot;me接口&quot;</span> top side</span><br><span class="line">    <span class="built_in">output</span> minecraft:gravel to each <span class="string">&quot;筛子&quot;</span> slots <span class="number">2</span><span class="number">-10</span></span><br><span class="line"><span class="comment">--    output 1 exdeorum:netherite_mesh to each &quot;筛子&quot; slots 1</span></span><br><span class="line"><span class="comment">--    output 3 exmachinis:diamond_upgrade to each &quot;筛子&quot; slots 0</span></span><br><span class="line">    forget</span><br><span class="line">    <span class="built_in">input</span> from each <span class="string">&quot;缓存&quot;</span> top side</span><br><span class="line">    <span class="built_in">output</span> to <span class="string">&quot;处理&quot;</span> top side</span><br><span class="line">    forget</span><br><span class="line">    <span class="built_in">input</span></span><br><span class="line">        minecraft:gold_ore,</span><br><span class="line">        minecraft:iron_ore,</span><br><span class="line">        alltheores:platinum_ore,</span><br><span class="line">        alltheores:lead_ore,</span><br><span class="line">        minecraft:copper_ore,</span><br><span class="line">        alltheores:aluminum_ore,</span><br><span class="line">        alltheores:silver_ore,</span><br><span class="line">        alltheores:osmium_ore,</span><br><span class="line">        alltheores:tin_ore,</span><br><span class="line">        alltheores:nickel_ore,</span><br><span class="line">        alltheores:zinc_ore,</span><br><span class="line">        alltheores:uranium_ore,</span><br><span class="line">    from <span class="string">&quot;处理&quot;</span> top side</span><br><span class="line">    <span class="built_in">output</span> to each <span class="string">&quot;熔炉&quot;</span> top side</span><br><span class="line">    forget</span><br><span class="line">    <span class="built_in">input</span></span><br><span class="line">        minecraft:coal,</span><br><span class="line">        minecraft:amethyst_shard,</span><br><span class="line">        minecraft:emerald,</span><br><span class="line">        minecraft:diamond,</span><br><span class="line">        minecraft:lapis_lazuli,</span><br><span class="line">    from <span class="string">&quot;处理&quot;</span> top side</span><br><span class="line">    <span class="built_in">output</span> to <span class="string">&quot;me接口&quot;</span> top side</span><br><span class="line">    forget</span><br><span class="line">    <span class="built_in">input</span> from each <span class="string">&quot;熔炉&quot;</span> bottom side</span><br><span class="line">    <span class="built_in">output</span> to <span class="string">&quot;me接口&quot;</span> top side</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+    </div>
+    <footer class="article-footer">
+        <a data-aos="zoom-in" href="/en/2026/05/10/sfm_automation_guide/#comments" class="article-comment-link">
+          <span class="post-comments-count waline-comment-count" data-path="/en/2026/05/10/sfm_automation_guide/" itemprop="commentCount"></span>
+          Comments
+        </a>
+        <span data-aos="zoom-in" class="article-visitor-link">
+          <span class="waline-pageview-count" data-path="/en/2026/05/10/sfm_automation_guide/">0</span>
+          <em class="post-meta-item-text">Readings</em>
+        </span>
+        <a class="article-category-link" href="/en/categories/%E8%84%9A%E6%9C%AC/" title="脚本" data-aos="zoom-in">脚本</a>
+
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in"><a class="article-tag-list-link" href="/en/tags/Minecraft/" rel="tag" title="Minecraft">Minecraft</a></li><li class="article-tag-list-item" data-aos="zoom-in"><a class="article-tag-list-link" href="/en/tags/SFM/" rel="tag" title="SFM">SFM</a></li><li class="article-tag-list-item" data-aos="zoom-in"><a class="article-tag-list-link" href="/en/tags/%E6%A8%A1%E7%BB%84/" rel="tag" title="模组">模组</a></li><li class="article-tag-list-item" data-aos="zoom-in"><a class="article-tag-list-link" href="/en/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/" rel="tag" title="自动化">自动化</a></li></ul>
+
+    </footer>
+  </div>
+    <nav id="article-nav" aria-label="Article navigation" data-aos="fade-up">
+      <div class="article-nav-link-wrap left">
+            <img data-src="https://jsd.onmicrosoft.cn/gh/RurSer/Pixo@main/images/11764388/66802612_无题_p3.webp" data-sizes="auto" alt="KaTeX 数学公式示例" class="lazyload">
+        <a href="/en/2026/05/14/KaTeX/" aria-label="Prev: KaTeX 数学公式示例" title="Prev: KaTeX 数学公式示例"></a>
+        <div class="article-nav-caption">Prev</div>
+        <h3 class="article-nav-title">
+            KaTeX 数学公式示例
+        </h3>
+      </div>
+    <div class="article-nav-link-wrap right">
+          <img data-src="https://jsd.onmicrosoft.cn/gh/RurSer/Pixo@main/images/11764388/125437707_✝✝✝_p0.webp" data-sizes="auto" alt="类原生 Android 去除 WiFi 网络感叹号/叉号" class="lazyload">
+      <a href="/en/2025/05/11/captive_portal_detection/" aria-label="Next: 类原生 Android 去除 WiFi 网络感叹号/叉号"  title="Next: 类原生 Android 去除 WiFi 网络感叹号/叉号"></a>
+      <div class="article-nav-caption">Next</div>
+      <h3 class="article-nav-title">
+          类原生 Android 去除 WiFi 网络感叹号/叉号
+      </h3>
+    </div>
+  </nav>
+
+</article>
+
+  <section id="comments" data-aos="fade-up">
+    <div class="comment-header">
+        
+      <h2 class="comment-title">Leave a comment</h2>
+      <div class="comment-selector">
+        <div class="comment-selector-wrap">
+            <div class="selector-item" data-selector="waline">
+              <span>waline</span>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="comment-content">
+          <div class="comment waline-comment" data-aos="fade-up"
+            id="waline-comment">
+          </div>
+    </div>
+  </section>
+
+</section>
+        </div>
+        <footer id="footer" aria-label="Site footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info">
+    <div>
+      <span class="icon-copyright"></span>
+        2020-2026
+        <span class="footer-info-sep rotate"></span>
+      Hatsuki
+    </div>
+      <div>
+        Powered by&nbsp;<a href="https://hexo.io/" rel="noopener nofollow noreferrer" target="_blank">Hexo</a>&nbsp;
+        Theme.<a href="https://github.com/D-Sketon/hexo-theme-reimu" rel="noopener nofollow noreferrer" target="_blank">Reimu</a>
+      </div>
+      <div>
+        <span class="icon-brush"></span>
+        20.5k
+        &nbsp;|&nbsp;
+        <span class="icon-coffee"></span>
+        01:46
+      </div>
+      <div class="footer-beian">
+        <a target="_blank" rel="noopener nofollow noreferrer" href="https://beian.miit.gov.cn">萌ICP备20260185号</a>
+      </div>
+      <div>
+        <span class="icon-eye"></span>
+        <span id="busuanzi_container_site_pv">Number of visits&nbsp;<span id="busuanzi_value_site_pv"></span></span>
+        &nbsp;|&nbsp;
+        <span class="icon-user"></span>
+        <span id="busuanzi_container_site_uv">Number of visitors&nbsp;<span id="busuanzi_value_site_uv"></span></span>
+      </div>
+  </div>
+</footer>
+
+          <div class="sidebar-top">
+            <div class="sidebar-top-taichi rotate"></div>
+            <div class="arrow-up"></div>
+          </div>
+        <div id="mask" class="hide"></div>
+      </div>
+      <nav id="mobile-nav" aria-label="Mobile navigation">
+  <div class="sidebar-wrap">
+        <div class="sidebar-toc-sidebar"><h3 class="toc-title">Contents</h3>
+<div class="sidebar-toc-wrapper toc-div-class" >
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%81%8C%E6%B3%A8%E6%9C%BA"><span class="toc-number">1.</span> <span class="toc-text"> 灌注机</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%9C%82%E8%9C%9C%E6%94%B6%E9%9B%86"><span class="toc-number">2.</span> <span class="toc-text"> 蜂蜜收集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A3%82%E5%8F%98%E7%87%83%E6%96%99"><span class="toc-number">3.</span> <span class="toc-text"> 裂变燃料</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E7%BA%A7%E7%9F%BF%E4%BA%A7"><span class="toc-number">4.</span> <span class="toc-text"> 四级矿产</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%86%94%E7%82%BC%E5%B7%A5%E5%8E%82"><span class="toc-number">5.</span> <span class="toc-text"> 熔炼工厂</span></a></li></ol>
+</div>
+</div>
+        <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img data-src="/avatar/avatar.webp" data-sizes="auto" alt="Hatsuki" class="lazyload">
+  <div class="sidebar-author-name">Hatsuki</div>
+  <div class="sidebar-description">May the world be as you and I wish it to be.</div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>Post</div>
+    <div class="sidebar-state-number">22</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>Category</div>
+    <div class="sidebar-state-number">3</div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>Tag</div>
+    <div class="sidebar-state-number">71</div>
+  </div>
+</div>
+<div class="sidebar-social" >
+</div>
+<div class="sidebar-menu">
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/en/" aria-label="Home"></a>
+          <div class="sidebar-menu-icon icon ">
+                &#xf015;
+          </div>
+        <div class="sidebar-menu-link">Home</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/en/archives" aria-label="Archives"></a>
+          <div class="sidebar-menu-icon icon ">
+                &#xf187;
+          </div>
+        <div class="sidebar-menu-link">Archives</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/en/about" aria-label="About"></a>
+          <div class="sidebar-menu-icon icon ">
+                &#xf05a;
+          </div>
+        <div class="sidebar-menu-link">About</div>
+      </div>
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/en/friend" aria-label="Friend"></a>
+          <div class="sidebar-menu-icon icon ">
+                &#xf500;
+          </div>
+        <div class="sidebar-menu-link">Friend</div>
+      </div>
+</div>
+</div>
+  </div>
+      <div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div>
+</nav>
+
+    </div>
+      <div class="site-search">
+        <div class="reimu-popup popup">
+          <div class="reimu-search">
+            <div class="reimu-search-input-icon"></div>
+            <div id="reimu-search-input"></div>
+            <div class="popup-btn-close"></div>
+          </div>
+          <div class="reimu-results">
+            <div id="reimu-stats"></div>
+            <div id="reimu-hits"></div>
+            <div id="reimu-pagination" class="reimu-pagination"></div>
+          </div>
+          <img class="reimu-bg" src="/images/reimu.png" loading="lazy" decoding="async" fetchpriority="low"/>
+        </div>
+      </div>
+    
+<script src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js" integrity="sha384-3gT&#x2F;vsepWkfz&#x2F;ff7PpWNUeMzeWoH3cDhm&#x2F;A8jM7ouoAK0&#x2F;fP&#x2F;9bcHHR5kHq2nf+e" crossorigin="anonymous"></script>
+
+
+<script src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js" integrity="sha384-J08i8An&#x2F;QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+  
+<script src="/js/aos.js"></script>
+
+  <script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', aosInit);
+    } else {
+      aosInit();
+    }
+  </script>
+
+
+<script src="/js/pjax_script.js" data-pjax></script>
+
+
+  
+<script src="/js/generator_search.js" defer></script>
+
+
+
+  <script>
+    var setupFirework = () => {
+      if (!false || !window.matchMedia('(max-width: 768px)').matches) {
+        window.firework && window.firework(JSON.parse('{"excludeElements":["a","button"],"particles":[{"shape":"circle","move":["emit"],"easing":"easeOutExpo","colors":["var(--red-1)","var(--red-2)","var(--red-3)","var(--red-4)"],"number":20,"duration":[1200,1800],"shapeOptions":{"radius":[16,32],"alpha":[0.3,0.5]}},{"shape":"circle","move":["diffuse"],"easing":"easeOutExpo","colors":["var(--red-0)"],"number":1,"duration":[1200,1800],"shapeOptions":{"radius":20,"alpha":[0.2,0.5],"lineWidth":6}}]}'));
+      }
+    }
+  </script>
+  
+<script src="https://npm.webcache.cn/mouse-firework@0.2.0/dist/index.umd.js" integrity="sha384-qi9WggRt19tv8Vc7pCHW3ulMNLwrn515zaLEWZjl1px07vz8+pUoWX8n1rgq282T" crossorigin="anonymous" onload="setupFirework()" defer></script>
+
+
+  
+<script src="https://npm.webcache.cn/theme-shokax-pjax@0.0.3/dist/index.umd.js" integrity="sha384-xneY1WY8hOfUzswrE4CrYq35N4BdVcxqxwHPr9zawE&#x2F;jMSCxD+jAPU55x&#x2F;jj3wlf" crossorigin="anonymous"></script>
+
+  
+<script src="/js/pjax.js"></script>
+
+
+
+  
+<script src="https://npm.webcache.cn/live2d-widgets@0.9.0/autoload.js" integrity="sha384-poTN7wN&#x2F;SqNhQqo3jdFeX20ikddWeFGkUkDEzsKjgH&#x2F;ez8aQLn81oI0Cw6q5xNyB" crossorigin="anonymous"></script>
+
+
+
+<div id="lazy-script">
+  <div>
+      
+      
+      <script data-pjax>
+        window.REIMU_POST = {
+          author: "Hatsuki",
+          title: "SFM 自动化代码",
+          url: "https://kwisma.github.io/2026/05/10/sfm_automation_guide/",
+          excerpt: "超级工厂管理（Super Factory Manager，简称 SFM）是一款强大的 Minecraft 模组，能够通过简单的代码实现复杂的自动化操作。本教程将分享一些常用的自动化代码模板，帮助玩家更高效地管理资源和机器。",
+          description: "",
+          stripContent: "超级工厂管理（Super Factory Manager，简称 SFM）是一款强大的 Minecraft 模组，能够通过简单的代码实现复杂的自动化操作。本教程将分享一些常用的自动化代码模板，帮助玩家更高效地管理资源和机器。   灌注机 批量燃烧物品，全自动熔炼 1234567891011121314151617181920212223name &amp;quot;灌注机自动化&amp;quot;  -- 定义机器的名称every 1 ticks do  -- 每1个刻（tick）执行以下操作    input ",
+          date: "Sun May 10 2026 19:28:46 GMT+0800",
+          updated: "Wed May 13 2026 01:00:09 GMT+0800",
+          cover: "/images/banner.webp",
+        };
+      </script>
+        
+<script src="/js/insert_highlight.js" data-pjax></script>
+
+      
+<script src="/js/tabs.js" data-pjax defer></script>
+
+      <script type="module" data-pjax>
+        (async () => {
+          const PhotoSwipeLightbox = (await safeImport("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe-lightbox.esm.min.js", "sha384-DiL6M/gG+wmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF/N6lrZi/")).default;
+          const initPswp = (gallery, children) => {
+            if (_$$(`${gallery} ${children}`).length > 0) {
+              new PhotoSwipeLightbox({
+                gallery,
+                children,
+                pswpModule: () => safeImport("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8+oTJ7m3DfYEWX1fu1scuS4+s")
+              }).init();
+            }
+          }
+          const pswp = () => {
+            initPswp('.article-entry', 'a.article-gallery-item');
+            initPswp('.article-gallery', 'a.article-gallery-item');
+          }
+          pswp();
+        })();
+      </script>
+        
+
+<script data-pjax>
+  var loadScript = (src, integrity) => {
+    const script = document.createElement('script');
+    script.src = src;
+    if (integrity) script.integrity = integrity;
+    script.crossOrigin = 'anonymous';
+    return script;
+  };
+
+  var commentConfigKeys = ["waline"];
+  var commentConfig = {
+    waline: {
+      enable: true,
+      load: async () => {
+        const container = document.querySelector('.waline-comment');
+        if (!container) return;
+        container.style.display = 'block';
+
+        let walineInit;
+        const walineCdn = 'https://npm.webcache.cn/@waline/client@2.15.8/dist/waline.mjs';
+        const walineIntegrity = 'sha384-9sbqJjrfGjbkI6/PI4nU/MvBfEmkkPC4YK9I4zBeMIf1CVCZdCMH/KinBEAZII/5';
+
+        const module = await safeImport(walineCdn, walineIntegrity);
+        walineInit = module.init;
+
+        window.walineInstance = walineInit({
+          el: '.waline-comment',
+          serverURL: 'https://waline.mot.cloudns.biz/',
+          lang: document.documentElement.lang || 'en',
+          locale: {"nick":"昵称","nickError":"昵称不能少于3个字符","mail":"邮箱","mailError":"请填写正确的邮件地址","link":"网址","optional":"可选","placeholder":"填写qq邮箱或点击登录，可以展示个人头像~详情请见【留言板】板块","sofa":"来发评论吧~","submit":"提交","like":"喜欢","cancelLike":"取消喜欢","reply":"回复","cancelReply":"取消回复","comment":"评论","refresh":"刷新","more":"加载更多...","preview":"预览","emoji":"表情","uploadImage":"上传图片","seconds":"秒前","minutes":"分钟前","hours":"小时前","days":"天前","now":"刚刚","uploading":"正在上传","login":"登录","logout":"退出","admin":"博主","sticky":"置顶","word":"字","wordHint":"评论字数应在 $0 到 $1 字之间！\n当前字数：$2","anonymous":"匿名","level0":"潜水","level1":"冒泡","level2":"吐槽","level3":"活跃","level4":"话痨","level5":"传说","gif":"表情包","gifSearchPlaceholder":"搜索表情包","profile":"个人资料","approved":"通过","waiting":"待审核","spam":"垃圾","unsticky":"取消置顶","oldest":"按倒序","latest":"按正序","hottest":"按热度","reactionTitle":"你认为这篇文章怎么样？"},
+          emoji: ["https://unpkg.com/@waline/emojis@1.2.0/weibo","https://unpkg.com/@waline/emojis@1.2.0/alus","https://unpkg.com/@waline/emojis@1.2.0/bilibili","https://unpkg.com/@waline/emojis@1.2.0/qq","https://unpkg.com/@waline/emojis@1.2.0/tieba","https://unpkg.com/@waline/emojis@1.2.0/tw-emoji","https://jsd.onmicrosoft.cn/npm/@waline/emojis@1.3.0/alus","https://jsd.onmicrosoft.cn/npm/@waline/emojis@1.3.0/bilibili","https://jsd.onmicrosoft.cn/npm/@waline/emojis@1.3.0/bmoji","https://jsd.onmicrosoft.cn/npm/@waline/emojis@1.3.0/coolapk","https://jsd.onmicrosoft.cn/npm/@waline/emojis@1.3.0/coolapk_coin","https://jsd.onmicrosoft.cn/npm/@waline/emojis@1.3.0/qq","https://jsd.onmicrosoft.cn/npm/@waline/emojis@1.3.0/soul-emoji","https://jsd.onmicrosoft.cn/npm/@waline/emojis@1.3.0/tieba","https://jsd.onmicrosoft.cn/npm/@waline/emojis@1.3.0/tw-body","https://jsd.onmicrosoft.cn/npm/@waline/emojis@1.3.0/tw-emoji","https://jsd.onmicrosoft.cn/npm/@waline/emojis@1.3.0/tw-flag","https://jsd.onmicrosoft.cn/npm/@waline/emojis@1.3.0/tw-food","https://jsd.onmicrosoft.cn/npm/@waline/emojis@1.3.0/tw-natural","https://jsd.onmicrosoft.cn/npm/@waline/emojis@1.3.0/tw-object","https://jsd.onmicrosoft.cn/npm/@waline/emojis@1.3.0/tw-people","https://jsd.onmicrosoft.cn/npm/@waline/emojis@1.3.0/tw-sport","https://jsd.onmicrosoft.cn/npm/@waline/emojis@1.3.0/tw-symbol","https://jsd.onmicrosoft.cn/npm/@waline/emojis@1.3.0/tw-time","https://jsd.onmicrosoft.cn/npm/@waline/emojis@1.3.0/tw-travel","https://jsd.onmicrosoft.cn/npm/@waline/emojis@1.3.0/tw-weather","https://jsd.onmicrosoft.cn/npm/@waline/emojis@1.3.0/tw","https://jsd.onmicrosoft.cn/npm/@waline/emojis@1.3.0/weibo"],
+          meta: ["nick","mail","link"],
+          requiredMeta: ["nick","mail"],
+          wordLimit: JSON.parse('0'),
+          comment: true,
+          pageSize: JSON.parse('10'),
+          dark: 'html[data-theme="dark"]',
+          pageview: JSON.parse('true'),
+        });
+      }
+    },
+  }
+  commentConfig.enable = commentConfigKeys.some(key => commentConfig[key].enable);
+
+  var defaultComment = '';
+  if (commentConfig.enable) {
+    // 1. 首先检查localStorage中是否有保存的评论类型
+    var savedCommentType = localStorage.getItem('commentType');
+    
+    // 2. 如果localStorage中有值且对应的评论系统可用，就使用它
+    if (savedCommentType) {
+      if (commentConfig[savedCommentType]?.enable) {
+        defaultComment = savedCommentType;
+      }
+    }
+    
+    // 3. 如果localStorage无效，检查配置的默认评论系统
+    if (!defaultComment) {
+      var configDefault = 'waline';
+      if (commentConfig[configDefault]?.enable) {
+        defaultComment = configDefault;
+      }
+    }
+    
+    // 4. 如果前两项都无效，按指定顺序找到第一个可用的评论系统
+    if (!defaultComment) {
+      defaultComment = commentConfigKeys.find(sys => commentConfig[sys].enable) || '';
+    }
+  }
+  function loadComments() {
+    if (!commentConfig.enable) return;
+    const loadedComments = {
+      valine: false,
+      waline: false,
+      twikoo: false,
+      gitalk: false,
+      giscus: false,
+      utterances: false,
+      beaudar: false,
+      disqus: false,
+    };
+
+    // 隐藏所有评论容器
+    const hideAllComments = () => {
+      const commentContainers = document.querySelectorAll('.comment');
+      commentContainers.forEach(container => {
+        container.style.display = 'none';
+      });
+    };
+
+    // 按需加载评论系统
+    const loadCommentSystem = (type) => {
+      if (loadedComments[type]) {
+        // 如果已加载，只需显示对应容器
+        document.querySelector(`.${type}-comment`).style.display = 'block';
+        return;
+      }
+
+      // 根据类型加载对应的脚本
+      commentConfig[type]?.load();
+      loadedComments[type] = true;
+    };
+
+    // 评论组件选择器
+    const changeActiveCommentItems = (item) => {
+      const commentItems = document.querySelectorAll('.selector-item');
+      for (let i = 0; i < commentItems.length; i++) {
+        commentItems[i].classList.remove('active');
+      }
+      item.classList.add('active');
+
+      // 获取要加载的评论系统类型
+      const commentType = item.getAttribute('data-selector');
+
+      // 隐藏所有评论系统
+      hideAllComments();
+
+      // 加载选中的评论系统
+      loadCommentSystem(commentType);
+    };
+
+    const commentInit = () => {
+      // 评论组件选择器点击事件
+      const commentItems = document.querySelectorAll('.selector-item');
+      for (let item of commentItems) {
+        item.addEventListener('click', () => {
+          // 保存选择器状态
+          const commentType = item.getAttribute('data-selector');
+          window.localStorage.setItem('commentType', commentType);
+          // 切换选中状态
+          changeActiveCommentItems(item);
+        });
+      }
+
+      // 检查是否需要加载默认评论系统
+      if (defaultComment) {
+        const defaultSelectorItem = document.querySelector(`[data-selector="${defaultComment}"]`);
+        if (!defaultSelectorItem) return;
+        defaultSelectorItem.style.display = 'block';
+        defaultSelectorItem.classList.add('active');
+        loadCommentSystem(defaultComment);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', commentInit);
+    } else {
+      commentInit();
+    }
+  };
+  loadComments();
+</script>
+
+  </div>
+</div>
+
+
+  <script>
+    console.log(String.raw`%c 
+ ______     ______     __     __    __     __  __    
+/\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+\ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+ \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+  \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                  
+`,'color: #ff5252;')
+    console.log('%c Theme.Reimu v' + '1.12.4' + ' %c https://github.com/D-Sketon/hexo-theme-reimu ', 'color: white; background: #ff5252; padding:5px 0;', 'padding:4px;border:1px solid #ff5252;')
+  </script>
+  
+
+
+  
+<script src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js" integrity="sha384-0M75wtSkhjIInv4coYlaJU83+OypaRCIq2SukQVQX04eGTCBXJDuWAbJet56id+S" crossorigin="anonymous" async></script>
+
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then((registrations) => {
+      for (let registration of registrations) {
+        registration.unregister();
+      }
+    });
+  }
+</script>
+
+    
+<script src="https://npm.webcache.cn/katex@0.16.24/dist/katex.min.js" integrity="sha384-MWNUH0WmtsYGhn2cbH6ELRCbf9LG3QDqCC+gqPB3IBNO35xjZK3Ejb6oONRpDbPg" crossorigin="anonymous" defer data-pjax></script>
+
+    
+<script src="https://npm.webcache.cn/katex@0.16.24/dist/contrib/auto-render.min.js" integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh" crossorigin="anonymous" defer onload="renderMathInElement(_$(&#39;article&#39;), {delimiters: [{left: &#39;$$&#39;, right: &#39;$$&#39;, display: true},{left: &#39;$&#39;, right: &#39;$&#39;, display: false}]});" data-pjax></script>
+
+  
+    <script>
+      var setupAPlayer = () => {
+        if (!false || !window.matchMedia('(max-width: 768px)').matches) {
+          if (window.matchMedia('(max-width: 959px)').matches) {
+            const meting = _$('meting-js');
+            if (meting) {
+              meting.setAttribute('fixed', 'true');
+              const aside = meting.parentNode?.parentNode;
+              if (aside?.tagName === 'ASIDE') {
+                meting.parentNode.removeChild(meting);
+                document.body.appendChild(meting);
+              }
+            }
+          }
+        }
+      };
+    </script>
+  
+<script src="https://npm.webcache.cn/aplayer@1.10.1/dist/APlayer.min.js" integrity="sha384-gdGYZwHnfJM54evoZhpO0s6ZF5BQiybkiyW7VXr+h5UfruuRL&#x2F;aORyw+5+HZoU6e" crossorigin="anonymous" defer onload="setupAPlayer()"></script>
+
+    
+<script src="https://npm.webcache.cn/meting@2.0.1/dist/Meting.min.js" integrity="sha384-ASVlpKF80A22OXTK3tfEjZm1EL6uFMKIC4p8+0maanw1S&#x2F;IyB+Y4JG+ZDU7GpKE8" crossorigin="anonymous" defer></script>
+
+
+
+  </body>
+  </html>
